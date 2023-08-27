@@ -26,17 +26,6 @@ if(Input::exists()){
 			$login = $user->login(Input::get('username'), Input::get('password'), $remember);
 
 			if($login){
-
-        $fields = array(
-                  "user_id" => (int)Session::get("user_id"),
-                  "description" => "Login",
-                  "action" => "Login",
-                  "affectedTable" => "NaN",
-                  "recordedValues" => "",
-                  "recordedTime" => date('Y-m-d H:i:s'),
-                  "recordedFrom" => "Lending System"
-                  );
-        $db->saveTrail($fields);
         
         Redirect::to('index.php');
         

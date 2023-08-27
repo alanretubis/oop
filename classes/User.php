@@ -57,17 +57,16 @@ class User{
 
 	public function find($user = null){
 		if($user){
-			$field = (is_numeric($user)) ? 'user_id' : 'username';
+			$field = (is_numeric($user)) ? 'id' : 'username';
 			$data = $this->_db->get('tbl_users', array($field, '=' , $user));
 			if($data){
 				if($data->count()){
 				$this->_data = $data->first();
-				Session::put($this->user_no, $this->data()->user_id);
+				Session::put($this->user_no, $this->data()->id);
 
-				$name = $this->data()->fname." ".$this->data()->lname;
+				$name = $this->data()->first_name." ".$this->data()->surname;
 
 				Session::put($this->name, $name);
-				Session::put($this->permission, $this->data()->permission);
 				return true;
 				}
 			}
@@ -79,7 +78,7 @@ class User{
 	public function login($username = null, $password = null, $remember = false){
 		
 		if(!$username && !$password && $this->exists()){
-			Session::put($this->_sessionName, $this->data()->user_id);
+			Session::put($this->_sessionName, $this->data()->id);
 		}else{
 
 			
@@ -89,15 +88,15 @@ class User{
 
 			if($user){
 				if($this->data()->password === Hash::make($password, $this->data()->salt)){
-					Session::put($this->_sessionName, $this->data()->user_id);
+					Session::put($this->_sessionName, $this->data()->id);
 					
 					if($remember){
 						$hash = Hash::unique();
-						$hashCheck = $this->_db->get('tbl_user_session', array('user_id', '=', $this->data()->user_id));
+						$hashCheck = $this->_db->get('tbl_user_session', array('id', '=', $this->data()->id));
 
 						if(!$hashCheck->count()){
 							$this->_db->insert('tbl_user_session',array(
-								'user_id' => $this->data()->user_id,
+								'user_id' => $this->data()->id,
 								'hash' => $hash
 							));
 						}else{

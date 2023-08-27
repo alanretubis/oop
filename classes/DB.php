@@ -131,10 +131,6 @@ class DB{
 	public function get($table, $where, $orderby = null){
 		return $this->action('SELECT *', $table, $where, $orderby);
 	}
-
-	public function total($table, $field, $where, $orderby = null){
-		return $this->action('SELECT SUM('.$field.') as total', $table, $where, $orderby);
-	}
 	
 	public function delete($table, $where){
 		return $this->action('DELETE ', $table, $where);
@@ -179,26 +175,6 @@ class DB{
 		}
 		return false;
 	}
-
-	public function updateRecord($table, $id_field, $id, $fields){
-		$set = '';
-		$x = 1;
-		
-		foreach($fields as $name => $value){
-			$set .= "{$name} = ?";
-			if($x<count($fields)){
-				$set .= ', ';
-			}
-			$x++;
-		}
-		
-		$sql = "UPDATE {$table} SET {$set} WHERE {$id_field} = {$id}";
-			
-		if(!$this->query($sql, $fields)->error()){
-			return true;
-		}
-		return false;
-	}
 	
 	public function results(){
 		return $this->_results;
@@ -218,36 +194,6 @@ class DB{
 
 	public function lastId(){
 		return $this->_lastId;
-	}
-
-	public function saveTrail($fields = array()){
-		try{
-
-			if($fields['recordedValues'] != ""){
-
-				// converts object to array 
-				$arr = (array)$fields['recordedValues'];
-
-				$keys = array_keys($arr);
-				$values = "";
-				foreach($keys as $key){
-					$values .= $key." => ".$arr[$key].",";
-				}
-
-				$recordedValues = rtrim($values, ',');
-
-				$fields['recordedValues'] = $recordedValues;
-
-			}else{
-				$fields['recordedValues'] = "NaN";
-			}
-			if(!$this->insert('tbl_audit_trail', $fields)){
-				//throw new Exception('There was a problem creating an account.');
-			}
-		}catch(Exception $ex)
-		{
-			die($ex->getMessage());	
-		}
 	}
 			
 } //class DB

@@ -8,7 +8,7 @@ $GLOBALS['config'] = array(
 		'host' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'db' => 'test'
+		'db' => 'blog_db'
 						  ),
 	'remember' => array(
 		'cookie_name' => 'hash',
