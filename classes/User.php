@@ -124,17 +124,6 @@ class User{
 
 		$this->_db->delete('tbl_user_session', array('user_id', '=', $this->data()->user_id));
 
-		$fields = array(
-			"user_id" => (int)Session::get("user_id"),
-			"description" => "Logout",
-			"action" => "Logout",
-			"affectedTable" => "NaN",
-			"recordedValues" => "",
-			"recordedTime" => date('Y-m-d H:i:s'),
-			"recordedFrom" => "OOP System");
-
-		$this->_db->saveTrail($fields);
-
 		Session::delete($this->_sessionName);
 		Cookie::delete($this->_cookieName);
 	}
