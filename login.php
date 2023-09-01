@@ -54,57 +54,6 @@ if(Input::exists()){
   <title><?php echo strtoupper($page_title); ?> | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <script type="text/javascript">
-  
-window.onload = initClock;
- 
-function initClock() {
-  var now = new Date();
-  var hr  = now.getHours();
-  var min = now.getMinutes();
-  var sec = now.getSeconds();
-  if (min < 10) min = "0" + min;  // insert a leading zero
-  if (sec < 10) sec = "0" + sec;
-
-  var suf;
-  if(hr > 11)
-  {
-    suf = "PM";
-  }
-  else
-  {
-  suf = "AM";
-  }
-  if(hr > 12){
-  document.getElementById('time').innerHTML
-        = hr%12 + ":" + min + ":" + sec + " "+suf;
-    }else
-    {
-       document.getElementById('time').innerHTML
-        = hr + ":" + min + ":" + sec +" "+ suf;
-    }
-  setTimeout('initClock()', 500);
-} 
-
-</script>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -113,13 +62,6 @@ function initClock() {
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <h4 class="login-box-msg" style="float:left; margin-left:30px; margin-top:16px; color:red">
-      <b> 
-        <?php 
-          echo date_create("",timezone_open("Asia/Manila"))->format("F d, Y");
-        ?>
-      </b>| <span id="time" /></span>
-    </h4> 
     <p class="login-box-msg">Please sign in to start</p>
     <form method="post">
       <div class="form-group has-feedback">
